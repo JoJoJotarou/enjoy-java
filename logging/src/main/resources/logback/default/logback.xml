@@ -1,0 +1,25 @@
+<!-- 该配置是logback默认行为，即便没有该文件也是这样 -->
+<configuration>
+    <!-- 定义控制台输出的 Appender -->
+    <!-- Appender 是日志框架中负责将日志事件输出到指定目标的组件，即怎么输出，输出到哪 -->
+    <!-- ConsoleAppender 表示将日志输出到控制台 -->
+    <!-- 该 Appender 配置了日志输出格式，包含时间、线程名、日志级别、日志记录器名称和日志消息 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 日志输出格式：
+                 %d{yyyy-MM-dd HH:mm:ss.SSS} 表示时间精确到毫秒
+                 [%thread] 表示线程名
+                 %-5level 表示日志级别，-5表示左对齐并固定宽度
+                 %logger{36} 表示日志记录器名称，最多显示36个字符
+                 - 分隔符
+                 %msg%n 表示日志消息和换行 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 设置根日志记录器级别为 debug，并指定使用 STDOUT Appender 输出日志 -->
+    <!-- 根日志记录器是默认存在的且是所有自行创建的日志记录器的父辈，若为显示指定日志记录器级别则会继承根日志记录器的级别 -->
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

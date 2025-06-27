@@ -1,0 +1,16 @@
+<!-- 通过设置 scan= true 开启自动重新加载配置，默认每60s扫描一次  -->
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 为不同的日志记录器设置不同的日志等级 -->
+    <logger name="com.ray.enjoy.java.logging.l1" level="info" />
+    <logger name="com.ray.enjoy.java.logging.l1.l2" level="error" />
+
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
