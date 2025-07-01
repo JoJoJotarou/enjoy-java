@@ -1,14 +1,18 @@
-<!-- 通过设置 scan= true 开启自动重新加载配置，默认每60s扫描一次  -->
 <configuration>
     <property name="LOG_FILE" value="logback" />
 
     <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志路径 -->
         <file>logs/${LOG_FILE}.log</file>
         <!-- see: https://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 滚动日志路径 -->
             <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd_HH-mm}.log</fileNamePattern>
-            <!-- 保留30天且不超过3GB大小 -->
+            <!-- 以.gz .zip or .xz结尾则会自动压缩，若使用.xz 则需要引入 https://tukaani.org/xz/java.html，若使用 .xz 为引入则回退到.gz -->
+            <!-- <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd_HH-mm}.log.gz</fileNamePattern> -->
+            <!-- 最大归档（文件）数 -->
             <maxHistory>30</maxHistory>
+            <!-- 所有归档大小总和的上限 -->
             <!-- <totalSizeCap>3GB</totalSizeCap> -->
         </rollingPolicy>
         <encoder>

@@ -55,6 +55,13 @@
                 <env.config.dir>src/main/resources/logback/rollingFile</env.config.dir>
             </properties>
         </profile>
+
+        <profile>
+            <id>logback-smtp</id>
+            <properties>
+                <env.config.dir>src/main/resources/logback/smtp</env.config.dir>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
@@ -83,6 +90,21 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.5.18</version>
+        </dependency>
+
+        <!-- 使用 SMTPAppender 需要 -->
+        <!-- https://stackoverflow.com/questions/78970782/jakarta-mail-throws-not-provider-of-jakarta-mail-util-streamprovider-was-found -->
+        <!-- 如果部署到具有完整 jakarta EE 实现的为web容器中请使用 jakarta.mail-api -->
+        <!-- <dependency> -->
+        <!--     <groupId>jakarta.mail</groupId> -->
+        <!--     <artifactId>jakarta.mail-api</artifactId> -->
+        <!--     <version>2.1.0</version> -->
+        <!-- </dependency> -->
+        <!-- 非web容器则使用 jakarta.mail -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>2.0.1</version>
         </dependency>
     </dependencies>
 </project>
