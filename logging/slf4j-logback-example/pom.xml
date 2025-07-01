@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ray.enjoy.java.logging</groupId>
+        <artifactId>logging</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>slf4j-logback-example</artifactId>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>logback-nonXml</id>
+        </profile>
+
+        <profile>
+            <id>logback-default</id>
+            <properties>
+                <env.config.dir>src/main/resources/logback/default</env.config.dir>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>logback-autoRefresh</id>
+            <properties>
+                <env.config.dir>src/main/resources/logback/autoRefresh</env.config.dir>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>logback-loggerLevel</id>
+            <properties>
+                <env.config.dir>src/main/resources/logback/loggerLevel</env.config.dir>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>logback-log2File</id>
+            <properties>
+                <env.config.dir>src/main/resources/logback/log2File</env.config.dir>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>logback-rollingFile</id>
+            <properties>
+                <env.config.dir>src/main/resources/logback/rollingFile</env.config.dir>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>logback-smtp</id>
+            <properties>
+                <env.config.dir>src/main/resources/logback/smtp</env.config.dir>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>logback-smtp-marker</id>
+            <properties>
+                <env.config.dir>src/main/resources/logback/smtp_marker</env.config.dir>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>${env.config.dir}</directory>
+            </resource>
+        </resources>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.17</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.18</version>
+        </dependency>
+
+        <!-- 使用 SMTPAppender 需要 -->
+        <!-- https://stackoverflow.com/questions/78970782/jakarta-mail-throws-not-provider-of-jakarta-mail-util-streamprovider-was-found -->
+        <!-- 如果部署到具有完整 jakarta EE 实现的为web容器中请使用 jakarta.mail-api -->
+        <!-- <dependency> -->
+        <!--     <groupId>jakarta.mail</groupId> -->
+        <!--     <artifactId>jakarta.mail-api</artifactId> -->
+        <!--     <version>2.1.0</version> -->
+        <!-- </dependency> -->
+        <!-- 非web容器则使用 jakarta.mail -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+    </dependencies>
+</project>
