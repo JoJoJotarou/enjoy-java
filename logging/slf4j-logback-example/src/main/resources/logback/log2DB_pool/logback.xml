@@ -1,0 +1,20 @@
+<configuration debug="true">
+
+    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
+            <dataSource class="com.zaxxer.hikari.HikariDataSource">
+                <!-- <param name="jdbcUrl" value="jdbc:mysql://172.29.0.35:3306/logback_test" /> -->
+                <!-- <param name="username" value="root" /> -->
+                <!-- <param name="password" value="123456" /> -->
+                <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
+                <jdbcUrl>jdbc:mysql://172.29.0.35:3306/logback_test</jdbcUrl>
+                <username>root</username>
+                <password>123456</password>
+            </dataSource>
+        </connectionSource>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="DB" />
+    </root>
+</configuration>
