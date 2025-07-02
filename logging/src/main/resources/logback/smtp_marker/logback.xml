@@ -1,0 +1,48 @@
+<configuration>
+    <property name="YOUR_EMAIL" value="SET_YOUR_EMAIL" />
+    <property name="YOUR_EMAIL_PASSWORD" value="SET_YOUR_EMAIL_PASSWORD" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
+        <!-- SMTP 服务器配置 -->
+        <smtpHost>smtp.exmail.qq.com</smtpHost>  <!-- Outlook 的 SMTP 服务器 -->
+        <smtpPort>465</smtpPort>  <!-- 端口号 -->
+
+        <from>${YOUR_EMAIL}</from>  <!-- 收件人地址 -->
+        <to>${YOUR_EMAIL}</to>  <!-- 发件人地址 -->
+        <subject>Logback - Error Log</subject>  <!-- 邮件主题 -->
+
+        <!-- SMTP 身份验证 -->
+        <username>${YOUR_EMAIL}</username>
+        <password>${YOUR_EMAIL_PASSWORD}</password>
+        <!-- 使用 TLS 加密 -->
+        <!-- <starttls>true</starttls> -->
+        <!-- 使用SSL -->
+        <SSL>true</SSL>
+        <layout class="ch.qos.logback.classic.html.HTMLLayout" />
+
+        <cyclicBufferTracker class="ch.qos.logback.core.spi.CyclicBufferTracker">
+            <!-- 日志缓存大小，触发发送邮件时，发送的日志条目数（包含触发的那一条日志） -->
+            <!-- send just one log entry per email -->
+            <bufferSize>1</bufferSize>
+        </cyclicBufferTracker>
+
+        <!-- 禁止异步发送邮件，否则代码里得sleep 长一点等待发送完成 -->
+        <asynchronousSending>false</asynchronousSending>
+
+        <!-- 意思只有遇到这个标记才会发邮件 -->
+        <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+            <marker>NOTIFY_ADMIN</marker>
+        </evaluator>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="EMAIL" />
+    </root>
+</configuration>
